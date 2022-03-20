@@ -940,10 +940,10 @@ static void ProgramDirectory(const char *path) {
   size_t n;
   s = strdup(path);
   n = strlen(s);
-  while (n && (s[n - 1] == '/' || s[n - 1] == '\\')) s[--n] = 0;
-  if (!n || !isdirectory(s)) {
+  if (!n || (!isdirectory(s) && !endswith(s, "/"))) {
     DIEF("(cfg) error: not a directory: %`'s", s);
   }
+  INFOF("(cfg) program directory: %s", s);
   AddString(&stagedirs, s, n);
 }
 
